@@ -1,0 +1,59 @@
+extends: spectral:oas
+
+functionsDir: "./src/functions"
+functions: 
+  - ExtensionsInPath
+  - PathNameDashes
+  - LowerCasePath
+
+rules:
+  bloomberg-paths-name-dashes:
+    severity: warn
+    message: "{{error}}"
+    given: "$.paths[*]~"
+    then:
+      function: PathNameDashes
+
+  bloomberg-paths-lower-case:
+    severity: warn
+    message: "{{error}}"
+    given: "$.paths[*]~"
+    then:
+      function: LowerCasePath
+
+  bloomberg-paths-extensions:
+    severity: warn
+    message: "{{error}}"
+    given: "$.paths[*]~"
+    then:
+      function: ExtensionsInPath
+
+  bloomberg-paths-ends-slash-case:
+      description: Paths should not ends with `/`.
+      message: '{{property}} should not end with slash.'
+      severity: warn
+      given: "$.paths[*]~"
+      then:
+        function: pattern
+        functionOptions: 
+          notMatch: ".+\/$"
+
+  bloomberg-paths-underscores :
+      description: Paths should not content underscores `_`.
+      message: 'Resource should not content underscores to separate work blocks.'
+      severity: warn
+      given: "$.paths[*]~"
+      then:
+        function: pattern
+        functionOptions:
+          notMatch: "(.*_.*)"
+
+  bloomberg-paths-versioning :
+      description: Paths should content versioning in the route path '/api/v*'.
+      message: 'Paths should content versioning in the route path [/api/v*].'
+      severity: warn
+      given: "$.paths[*]~"
+      then:
+        function: pattern
+        functionOptions:
+          match: "(api\/v.\/)"
