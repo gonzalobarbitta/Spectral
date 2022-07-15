@@ -7,28 +7,28 @@ functions:
   - LowerCasePath
 
 rules:
-  bloomberg-paths-name-dashes:
+  paths-name-dashes:
     severity: warn
     message: "{{error}}"
     given: "$.paths[*]~"
     then:
       function: PathNameDashes
 
-  bloomberg-paths-lower-case:
+  paths-lower-case:
     severity: warn
     message: "{{error}}"
     given: "$.paths[*]~"
     then:
       function: LowerCasePath
 
-  bloomberg-paths-extensions:
+  paths-extensions:
     severity: warn
     message: "{{error}}"
     given: "$.paths[*]~"
     then:
       function: ExtensionsInPath
 
-  bloomberg-paths-ends-slash-case:
+  paths-ends-slash-case:
       description: Paths should not ends with `/`.
       message: '{{property}} should not end with slash.'
       severity: warn
@@ -38,7 +38,7 @@ rules:
         functionOptions: 
           notMatch: ".+\/$"
 
-  bloomberg-paths-underscores :
+  paths-underscores :
       description: Paths should not content underscores `_`.
       message: 'Resource should not content underscores to separate work blocks.'
       severity: warn
@@ -48,7 +48,7 @@ rules:
         functionOptions:
           notMatch: "(.*_.*)"
 
-  bloomberg-paths-versioning :
+  paths-versioning :
       description: Paths should content versioning in the route path '/api/v*'.
       message: 'Paths should content versioning in the route path [/api/v*].'
       severity: warn
